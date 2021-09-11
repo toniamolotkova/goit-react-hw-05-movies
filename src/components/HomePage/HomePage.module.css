@@ -1,0 +1,75 @@
+.movieList {
+  padding-top: 20px;
+  padding-bottom: 60px;
+  margin: 0 auto;
+}
+
+.link {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .movieList {
+    padding-top: 40px;
+    padding-bottom: 50px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 294px);
+    grid-auto-rows: 440px;
+    grid-gap: 30px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .movieList {
+    grid-template-columns: repeat(3, 274px);
+  }
+}
+/* 
+@media screen and (min-width: 768px) {
+    .movie {
+      display: grid;
+      grid-template-columns: repeat(2, 294px);
+      grid-auto-rows: 440px;
+      grid-gap: 30px;  
+    }
+} */
+
+.movie {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+.image {
+  margin-bottom: 10px;
+  width: 280px;
+  height: 398px;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #2a363b;
+
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 767px) {
+  .movie:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .image {
+    width: 294px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .image {
+    width: 274px;
+  }
+}
