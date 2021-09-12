@@ -1,11 +1,11 @@
 import s from "./HomePage.module.css";
-import fetchPopMovies from "services/movie-api";
+import { fetchPopMovies } from "services/movie-api";
 import { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
-  const { url } = useRouteMatch(0);
+  //const { url } = useRouteMatch();
 
   useEffect(() => {
     if (!movies) return;
@@ -16,7 +16,7 @@ const HomePage = () => {
     <ul className={s.movieList}>
       {movies.map((movie) => (
         <li className={s.movie} key={movie.id}>
-          <Link to={`${url}/${movie.id}`} className={s.link}>
+          <NavLink to={`movies/${movie.id}`} className={s.link}>
             <img
               className={s.image}
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -24,7 +24,7 @@ const HomePage = () => {
             />
 
             <p className={s.title}>{movie.title}</p>
-          </Link>
+          </NavLink>
         </li>
       ))}
     </ul>
