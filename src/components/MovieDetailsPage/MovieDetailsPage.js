@@ -1,15 +1,16 @@
 import s from "./MovieDetailsPage.module.css";
 import { useState, useEffect } from "react";
-import { useParams, useRouteMatch, Route } from "react-router-dom";
+import { useParams, useRouteMatch, Route, NavLink } from "react-router-dom";
 
 import { fetchMovieDetails } from "services/movie-api";
 import Cast from "components/Cast";
+import Reviews from "components/Reviews";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
 
-  const { path } = useRouteMatch();
+  const { path, url } = useRouteMatch();
 
   useEffect(() => {
     fetchMovieDetails(movieId).then(setMovie);
@@ -21,8 +22,9 @@ const MovieDetailsPage = () => {
         <div className={s.wrap}>
           <img
             src={
-              `https://image.tmdb.org/t/p/w500/${movie.poster_path}` ??
-              `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
             }
             alt={movie.title}
             className={s.image}
@@ -42,10 +44,33 @@ const MovieDetailsPage = () => {
         </div>
       )}
       <>
-        <h3 className={s.title}> Additional information</h3>
+        <h3 className={s.title}> Additional information:</h3>
+        <ul>
+          <li className={s.item}>
+            <NavLink
+              to={`${url}/cast`}
+              className={s.link}
+              activeClassName={s.activeLink}
+            >
+              Cast
+            </NavLink>
+          </li>
+          <li className={s.item}>
+            <NavLink
+              to={`${url}/reviews`}
+              className={s.link}
+              activeClassName={s.activeLink}
+            >
+              Reviews
+            </NavLink>
+          </li>
+        </ul>
 
-        <Route path={`${path}`}>
+        <Route path={`${path}/cast`}>
           <Cast />
+        </Route>
+        <Route path={`${path}/reviews`}>
+          <Reviews />
         </Route>
       </>
     </>

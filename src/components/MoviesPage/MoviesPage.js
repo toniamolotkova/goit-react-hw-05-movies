@@ -12,7 +12,7 @@ const MoviesPage = () => {
   //const [page, setPage] = useState(1);
   useEffect(() => {
     if (!searchValue) return;
-    fetchMovieBySearch(searchValue).then(setMovies);
+    fetchMovieBySearch(searchValue).then((res) => setMovies(res.results));
   }, [searchValue]);
 
   const handleFormSubmit = (searchValue) => {
@@ -29,7 +29,11 @@ const MoviesPage = () => {
               <NavLink to={`${url}/${movie.id}`} className={s.link}>
                 <img
                   className={s.image}
-                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                      : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+                  }
                   alt={`poster ${movie.title}`}
                 />
 

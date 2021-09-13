@@ -18,10 +18,18 @@
     grid-auto-rows: 440px;
     grid-gap: 30px;
   }
+
+  .image {
+    width: 294px;
+  }
 }
 @media screen and (min-width: 1024px) {
   .movieList {
     grid-template-columns: repeat(3, 274px);
+  }
+
+  .image {
+    width: 274px;
   }
 }
 /* 
@@ -59,17 +67,5 @@
 @media screen and (max-width: 767px) {
   .movie:not(:last-child) {
     margin-bottom: 20px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .image {
-    width: 294px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .image {
-    width: 274px;
   }
 }
