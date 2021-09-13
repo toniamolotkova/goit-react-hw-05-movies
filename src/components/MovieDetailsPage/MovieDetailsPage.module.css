@@ -1,5 +1,5 @@
 .wrap {
-  padding: 40px 0;
+  padding: 20px 0;
   margin: 0 auto;
   border-bottom: 1px solid #2a363b;
   margin-bottom: 20px;
@@ -39,7 +39,7 @@
 @media screen and (min-width: 768px) {
   .wrap {
     display: flex;
-    padding: 40px 0;
+    padding: 20px 0;
   }
   .image {
     margin-right: 30px;
@@ -61,4 +61,15 @@
 .activeLink {
   composes: link;
   color: #2cac60;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px;
+
+  font-size: 14px;
+
+  background-color: #2cac60;
+  color: #fff;
+  border: none;
 }

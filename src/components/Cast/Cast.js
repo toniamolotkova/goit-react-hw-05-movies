@@ -2,7 +2,7 @@ import s from "./Cast.module.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieCast } from "services/movie-api";
-import image from "../../assets/default-non-user-no-photo.jpeg";
+//import image from "../../assets/default-non-user-no-photo.jpeg";
 const Cast = () => {
   const { movieId } = useParams();
 
@@ -26,7 +26,7 @@ const Cast = () => {
                 src={
                   actor.profile_path
                     ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
-                    : `${image}`
+                    : "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
                 }
                 alt={actor.name}
               />

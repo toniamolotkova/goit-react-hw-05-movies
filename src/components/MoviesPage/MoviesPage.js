@@ -2,17 +2,26 @@ import s from "./MoviesPage.module.css";
 import { useState, useEffect } from "react";
 import SearchForm from "components/SearchForm";
 import { fetchMovieBySearch } from "services/movie-api";
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink, useRouteMatch, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MoviesPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [movies, setMovies] = useState(null);
 
   const { url } = useRouteMatch();
+  const location = useLocation();
   //const [page, setPage] = useState(1);
   useEffect(() => {
     if (!searchValue) return;
-    fetchMovieBySearch(searchValue).then((res) => setMovies(res.results));
+    fetchMovieBySearch(searchValue).then((res) => {
+      if (res.results.length === 0) {
+        toast.error(`Can't find ${searchValue}. Sorry(`);
+        return;
+      }
+      setMovies(res.results);
+    });
   }, [searchValue]);
 
   const handleFormSubmit = (searchValue) => {
@@ -26,7 +35,18 @@ const MoviesPage = () => {
         <ul className={s.movieList}>
           {movies.map((movie) => (
             <li key={movie.id}>
-              <NavLink to={`${url}/${movie.id}`} className={s.link}>
+              <NavLink
+                to={{
+                  pathname: `${url}/${movie.id}`,
+                  state: {
+                    from: {
+                      location,
+                      label: "Back to the search",
+                    },
+                  },
+                }}
+                className={s.link}
+              >
                 <img
                   className={s.image}
                   src={
