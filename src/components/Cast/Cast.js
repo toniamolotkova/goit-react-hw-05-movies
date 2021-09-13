@@ -1,11 +1,9 @@
 import s from "./Cast.module.css";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { fetchMovieCast } from "services/movie-api";
-//import image from "../../assets/default-non-user-no-photo.jpeg";
-const Cast = () => {
-  const { movieId } = useParams();
 
+const Cast = ({ movieId }) => {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
@@ -40,6 +38,10 @@ const Cast = () => {
       )}
     </>
   );
+};
+
+Cast.propTypes = {
+  movieId: PropTypes.string.isRequired,
 };
 
 export default Cast;

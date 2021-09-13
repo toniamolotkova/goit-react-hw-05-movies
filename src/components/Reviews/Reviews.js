@@ -1,11 +1,9 @@
 import s from "./Reviews.module.css";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { fetchMovieReviews } from "services/movie-api";
 
-const Reviews = () => {
-  const { movieId } = useParams();
-
+const Reviews = ({ movieId }) => {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
@@ -22,7 +20,7 @@ const Reviews = () => {
           {reviews.map((review) => (
             <li className={s.item} key={review.id}>
               <h3 className={s.name}>Author: {review.author}</h3>
-              <p className={s.content}> {review.content}</p>
+              <p className={s.content}> "{review.content}"</p>
             </li>
           ))}
         </ul>
@@ -31,6 +29,10 @@ const Reviews = () => {
       )}
     </>
   );
+};
+
+Reviews.propTypes = {
+  movieId: PropTypes.string.isRequired,
 };
 
 export default Reviews;

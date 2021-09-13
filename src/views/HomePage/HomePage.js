@@ -2,6 +2,9 @@ import s from "./HomePage.module.css";
 import { fetchPopMovies } from "services/movie-api";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import slugify from "slugify";
+
+const makeSlug = (string) => slugify(string, { lower: true });
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -18,7 +21,7 @@ const HomePage = () => {
         <li className={s.movie} key={movie.id}>
           <NavLink
             to={{
-              pathname: `movies/${movie.id}`,
+              pathname: `movies/${makeSlug(`${movie.title} ${movie.id}`)}`,
               state: {
                 from: {
                   location,

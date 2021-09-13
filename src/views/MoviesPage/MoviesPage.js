@@ -5,6 +5,9 @@ import { fetchMovieBySearch } from "services/movie-api";
 import { NavLink, useRouteMatch, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import slugify from "slugify";
+
+const makeSlug = (string) => slugify(string, { lower: true });
 
 const MoviesPage = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -12,7 +15,7 @@ const MoviesPage = () => {
 
   const { url } = useRouteMatch();
   const location = useLocation();
-  //const [page, setPage] = useState(1);
+
   useEffect(() => {
     if (!searchValue) return;
     fetchMovieBySearch(searchValue).then((res) => {
@@ -37,11 +40,11 @@ const MoviesPage = () => {
             <li key={movie.id}>
               <NavLink
                 to={{
-                  pathname: `${url}/${movie.id}`,
+                  pathname: `${url}/${makeSlug(`${movie.title} ${movie.id}`)}`,
                   state: {
                     from: {
+                      label: "Back to search",
                       location,
-                      label: "Back to the search",
                     },
                   },
                 }}

@@ -6,20 +6,15 @@ import { ToastContainer } from "react-toastify";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-// import HomePage from "components/HomePage";
-// import MoviesPage from "components/MoviesPage";
-// import MovieDetailsPage from "components/MovieDetailsPage";
 const HomePage = lazy(() =>
-  import("./components/HomePage/HomePage.js" /* webpackChunkName: "home-page"*/)
+  import("./views/HomePage/HomePage.js" /* webpackChunkName: "home-page"*/)
 );
 const MoviesPage = lazy(() =>
-  import(
-    "./components/MoviesPage/MoviesPage.js" /* webpackChunkName: "movie-page"*/
-  )
+  import("./views/MoviesPage/MoviesPage.js" /* webpackChunkName: "movie-page"*/)
 );
 const MovieDetailsPage = lazy(() =>
   import(
-    "./components/MovieDetailsPage/MovieDetailsPage.js" /* webpackChunkName: "movie-details-page"*/
+    "./views/MovieDetailsPage/MovieDetailsPage.js" /* webpackChunkName: "movie-details-page"*/
   )
 );
 
@@ -40,7 +35,7 @@ export default function App() {
             <Route path="/movies" exact>
               <MoviesPage />
             </Route>
-            <Route path="/movies/:movieId">
+            <Route path="/movies/:slug">
               <MovieDetailsPage />
             </Route>
             <Redirect to="/" />
