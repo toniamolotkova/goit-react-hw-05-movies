@@ -15,15 +15,15 @@ function fetchWithErrorHandling(url = "") {
     .catch((error) => error.message || "Your query is not find");
 }
 
-export function fetchPopMovies() {
+export function fetchPopMovies(page) {
   return fetchWithErrorHandling(
-    `${BASE_URL}/trending/movie/day?api_key=${ACCESS_KEY}`
+    `${BASE_URL}/trending/movie/day?api_key=${ACCESS_KEY}&page=${page}`
   );
 }
 
-export function fetchMovieBySearch(query) {
+export function fetchMovieBySearch(query, page) {
   return fetchWithErrorHandling(
-    `${BASE_URL}/search/movie?api_key=${ACCESS_KEY}&language=en-US&page=1&include_adult=false&query=${query}`
+    `${BASE_URL}/search/movie?api_key=${ACCESS_KEY}&language=en-US&page=${page}&include_adult=false&query=${query}`
   );
 }
 
