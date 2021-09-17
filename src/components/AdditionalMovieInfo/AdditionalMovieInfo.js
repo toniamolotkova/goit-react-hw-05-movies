@@ -10,17 +10,19 @@ const Reviews = lazy(() =>
 
 const AdditionalMovieInfo = ({ movieId, path, url }) => {
   const location = useLocation();
-  //const history = useHistory();
 
-  const query = location?.state?.from;
-  console.log(query);
   return (
     <>
       <h3 className={s.title}> Additional information:</h3>
       <ul>
         <li className={s.item}>
           <NavLink
-            to={`${url}/cast`}
+            to={{
+              pathname: `${url}/cast`,
+              state: {
+                from: location?.state?.from ?? "/",
+              },
+            }}
             className={s.link}
             activeClassName={s.activeLink}
           >
@@ -32,7 +34,7 @@ const AdditionalMovieInfo = ({ movieId, path, url }) => {
             to={{
               pathname: `${url}/reviews`,
               state: {
-                from: query && "/",
+                from: location?.state?.from ?? "/",
               },
             }}
             className={s.link}
