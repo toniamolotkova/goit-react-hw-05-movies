@@ -29,7 +29,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!movies) return;
-    fetchPopMovies(page).then((response) => {
+    fetchPopMovies(1).then((response) => {
       setMovies(response.results);
       setPage(page + 1);
     });

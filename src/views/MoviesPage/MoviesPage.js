@@ -2,7 +2,12 @@ import s from "./MoviesPage.module.css";
 import { useState, useEffect, useRef } from "react";
 import SearchForm from "components/SearchForm";
 import { fetchMovieBySearch } from "services/movie-api";
-import { NavLink, useRouteMatch, useLocation } from "react-router-dom";
+import {
+  NavLink,
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import slugify from "slugify";
@@ -16,6 +21,9 @@ const MoviesPage = () => {
 
   const { url } = useRouteMatch();
   const location = useLocation();
+  const history = useHistory();
+
+  const query = new URLSearchParams(location.search).get("query");
 
   const observRef = useRef(null);
   const callbackFunction = ([entries]) => {
@@ -37,14 +45,17 @@ const MoviesPage = () => {
   };
 
   useEffect(() => {
+    if (location.search !== "") setSearchValue(query);
+
     if (!searchValue) return;
-    fetchMovieBySearch(searchValue, page).then((res) => {
+    fetchMovieBySearch(searchValue, 1).then((res) => {
       if (res.results.length === 0) {
         toast.error(`Can't find ${searchValue}. Sorry(`);
         return;
       }
+      history.push({ ...location, search: `query=${searchValue}` });
       setMovies(res.results);
-      setPage(page + 1);
+      setPage(2);
     });
   }, [searchValue]);
 

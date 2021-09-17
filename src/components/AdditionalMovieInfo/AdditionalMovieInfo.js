@@ -1,5 +1,5 @@
 import s from "./AdditionalMovieInfo.module.css";
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch, useLocation } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import PropTypes from "prop-types";
 
@@ -9,6 +9,11 @@ const Reviews = lazy(() =>
 );
 
 const AdditionalMovieInfo = ({ movieId, path, url }) => {
+  const location = useLocation();
+  //const history = useHistory();
+
+  const query = location?.state?.from;
+  console.log(query);
   return (
     <>
       <h3 className={s.title}> Additional information:</h3>
@@ -24,7 +29,12 @@ const AdditionalMovieInfo = ({ movieId, path, url }) => {
         </li>
         <li className={s.item}>
           <NavLink
-            to={`${url}/reviews`}
+            to={{
+              pathname: `${url}/reviews`,
+              state: {
+                from: query && "/",
+              },
+            }}
             className={s.link}
             activeClassName={s.activeLink}
           >
